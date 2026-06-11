@@ -2,7 +2,7 @@ version: 2
 
 models:
 
-  # ✅ STAGING MODELS
+  # STAGING MODELS
   - name: stg_tpch__orders
     description: "Staging model for TPC-H orders"
     columns:
