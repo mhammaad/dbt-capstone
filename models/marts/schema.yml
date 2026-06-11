@@ -3,7 +3,7 @@ version: 2
 models:
   # ✅ FACT TABLE
   - name: fct_orders
-    description: "Fact table for orders"
+    description: "{{ doc('__overview__') }}"
 
     columns:
       - name: order_sk

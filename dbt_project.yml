@@ -1,4 +1,4 @@
-name: 'my_new_project'
+name: 'dbt_capstone'
 version: '1.0.0'
 config-version: 2
 
@@ -12,15 +12,17 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
 
 target-path: "target"
+
 clean-targets:
   - "target"
   - "dbt_packages"
 
 # ✅ Model configuration (layered architecture)
 models:
-  my_new_project:
+  dbt_capstone:
 
     # 🔹 Staging layer
     staging:
@@ -32,7 +34,7 @@ models:
       +materialized: view
       +schema: intermediate
 
-    # 🔹 Mart layer (future use)
+    # 🔹 Mart layer
     marts:
       +materialized: table
       +schema: marts
@@ -41,8 +43,8 @@ models:
     example:
       +enabled: false
 
-# ✅ Seeds configuration (for nations.csv)
+# ✅ Seeds configuration
 seeds:
-  my_new_project:
+  dbt_capstone:
     +schema: seed_data
     +quote_columns: false

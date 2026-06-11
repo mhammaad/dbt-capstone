@@ -1,16 +1,18 @@
+{% docs __overview__ %}
+
 # 📊 TPC-H Analytics Project (dbt + Snowflake)
 
 ## 📌 Project Overview
 
-This project demonstrates how to build a modern analytics warehouse using **dbt** on top of the **Snowflake TPC-H dataset**.
+This project demonstrates a modern analytics pipeline built with **dbt** on top of the **Snowflake TPC-H sample dataset**.
 
-The goal is to transform raw transactional data into **clean, reliable, and analytics-ready tables** using a structured, layered approach.
+The objective is to transform raw transactional data into **clean, structured, and analytics-ready datasets** using a layered architecture and best practices in data modeling.
 
 ---
 
 ## 🧱 Architecture
 
-The project follows a standard **dbt layered architecture**:
+The project follows a standard dbt layered approach:
 
 ```
 Sources
@@ -24,46 +26,19 @@ Marts
 
 ---
 
-## 📂 Project Structure
+## 📂 Layers
 
-### 🔹 Staging Layer (`models/staging/`)
-- Cleans and standardizes raw source data
-- Renames columns into consistent `snake_case`
-- Keeps transformations minimal
+### 🔹 Staging
+- Cleans and standardizes raw data
+- Renames columns to `snake_case`
+- Minimal transformations
 
-**Models:**
-- `stg_tpch__orders`
-- `stg_tpch__customer`
-- `stg_tpch__lineitem`
-- `stg_tpch__nations`
-
----
-
-### 🔹 Intermediate Layer (`models/intermediate/`)
+### 🔹 Intermediate
 - Combines staging models
-- Applies business logic and enrichments
+- Applies business logic and enrichment
 
-**Model:**
-- `int_orders_enriched`
-
----
-
-### 🔹 Marts Layer (`models/marts/`)
-- Final tables optimized for analytics
-
-**Models:**
-- `fct_orders`
-- `dim_customers`
-
----
-
-## 📂 Data Sources
-
-### ✅ Snowflake Source
-- `SNOWFLAKE_SAMPLE_DATA.TPCH_SF1`
-
-### ✅ Seed Data
-- `nations.csv`
+### 🔹 Marts
+- Final analytics-ready models
 
 ---
 
@@ -83,18 +58,18 @@ Mart Models
 
 ## ⚙️ Key Features
 
-- Incremental fact table (`fct_orders`)
-- Surrogate keys using `dbt_utils`
-- Customer segmentation logic
+- Incremental processing
+- Surrogate keys
+- Customer segmentation
 
 ---
 
 ## ✅ Data Quality
 
-- Primary key tests (`not_null`, `unique`)
-- Relationship tests (foreign keys)
-- Accepted value checks
-- Custom validation tests
+- Primary key tests
+- Relationship tests
+- Accepted values
+- Custom SQL tests
 
 ---
 
@@ -110,17 +85,9 @@ dbt docs serve
 
 ---
 
-## 🗂️ Schema Strategy
+## 🚀 Summary
 
-| Layer        | Schema Example      |
-|--------------|-------------------|
-| Staging      | HHU_STAGING       |
-| Intermediate | HHU_INTERMEDIATE  |
-| Marts        | HHU_MARTS         |
-| Seeds        | HHU_SEED_DATA     |
+Production-style dbt project with layered modeling, incremental pipelines, and strong data quality practices.
 
----
+{% enddocs %}
 
-## 🚀 Conclusion
-
-This project demonstrates a production-style dbt pipeline, including layered modeling, incremental processing, and strong data quality practices.
