@@ -1,0 +1,99 @@
+version: 2
+
+sources:
+  - name: tpch
+    description: "TPC-H sample data from Snowflake"
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCH_SF1
+
+    # ✅ Freshness configuration
+    freshness:
+      warn_after: {count: 6, period: hour}
+      error_after: {count: 24, period: hour}
+
+    
+
+    tables:
+      - name: orders
+        description: "Orders table containing customer order data"
+
+        columns:
+          - name: O_ORDERKEY
+            description: "Primary key for orders"
+            loaded_at_field: O_ORDERDATE   # used for freshness checks
+          - name: O_CUSTKEY
+            description: "Customer who placed the order"
+          - name: O_ORDERSTATUS
+            description: "Order status (O, F, P)"
+          - name: O_TOTALPRICE
+            description: "Total order price"
+          - name: O_ORDERDATE
+            description: "Date of the order"
+          - name: O_ORDERPRIORITY
+            description: "Order priority"
+          - name: O_CLERK
+            description: "Clerk handling the order"
+          - name: O_SHIPPRIORITY
+            description: "Shipping priority"
+          - name: O_COMMENT
+            description: "Order comments"
+
+      - name: lineitem
+        description: "Line items for each order (detailed order rows)"
+
+        loaded_at_field: L_SHIPDATE
+
+        columns:
+          - name: L_ORDERKEY
+            description: "Order key (foreign key to orders)"
+          - name: L_PARTKEY
+            description: "Part identifier"
+          - name: L_SUPPKEY
+            description: "Supplier identifier"
+          - name: L_LINENUMBER
+            description: "Line number within the order"
+          - name: L_QUANTITY
+            description: "Quantity ordered"
+          - name: L_EXTENDEDPRICE
+            description: "Extended price"
+          - name: L_DISCOUNT
+            description: "Discount applied"
+          - name: L_TAX
+            description: "Tax applied"
+          - name: L_RETURNFLAG
+            description: "Return flag"
+          - name: L_LINESTATUS
+            description: "Line status"
+          - name: L_SHIPDATE
+            description: "Shipping date"
+          - name: L_COMMITDATE
+            description: "Commit date"
+          - name: L_RECEIPTDATE
+            description: "Receipt date"
+          - name: L_SHIPINSTRUCT
+            description: "Shipping instructions"
+          - name: L_SHIPMODE
+            description: "Shipping mode"
+          - name: L_COMMENT
+            description: "Line item comments"
+
+      - name: customer
+        description: "Customer master data"
+
+        columns:
+          - name: C_CUSTKEY
+            description: "Primary key for customer"
+          - name: C_NAME
+            description: "Customer name"
+          - name: C_ADDRESS
+            description: "Customer address"
+          - name: C_NATIONKEY
+            description: "Nation key (foreign key)"
+          - name: C_PHONE
+            description: "Phone number"
+          - name: C_ACCTBAL
+            description: "Account balance"
+          - name: C_MKTSEGMENT
+            description: "Market segment"
+          - name: C_COMMENT
+            description: "Customer comments"

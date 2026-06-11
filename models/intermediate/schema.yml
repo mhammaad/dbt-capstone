@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: int_orders_enriched
+    description: "Orders enriched with customers and nations"
+
+    columns:
+      - name: order_key
+        tests: [not_null, unique]
+
+      - name: customer_key
+        tests:
+          - relationships:
+              to: ref('stg_tpch__customer')
+              field: customer_key
+
+      - name: nation_key
+        tests:
+          - relationships:
+              to: ref('stg_tpch__nations')
+              field: nation_key
+
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: ['O', 'F', 'P']
+
+      - name: order_year
+        tests: [not_null]
+
+      - name: order_quarter
+        tests: [not_null]

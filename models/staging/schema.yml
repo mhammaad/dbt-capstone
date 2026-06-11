@@ -1,0 +1,75 @@
+version: 2
+
+models:
+
+  # ✅ STAGING MODELS
+  - name: stg_tpch__orders
+    description: "Staging model for TPC-H orders"
+    columns:
+      - name: order_key
+        description: "Primary key of the order"
+        tests: [not_null, unique]
+
+      - name: customer_key
+        description: "Foreign key to customer"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_tpch__customer')
+              field: customer_key
+
+      - name: order_status
+        description: "Order status"
+        tests:
+          - accepted_values:
+              values: ['O', 'F', 'P']
+
+      - name: order_date
+        description: "Date the order was placed"
+        tests:
+          - not_null
+
+  - name: stg_tpch__customers
+    description: "Staging model for TPC-H customers"
+    columns:
+      - name: customer_key
+        description: "Primary key"
+        tests: [not_null, unique]
+
+      - name: nation_key
+        description: "Foreign key to nation"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_tpch__nations')
+              field: nation_key
+
+  - name: stg_tpch__lineitem
+    description: "Staging model for TPC-H line items"
+    columns:
+      - name: order_key
+        description: "Foreign key to order"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_tpch__orders')
+              field: order_key
+
+      - name: line_number
+        description: "Line item number"
+        tests:
+          - not_null
+
+  - name: stg_tpch__nations
+    description: "Staging model from nations seed"
+    columns:
+      - name: nation_key
+        description: "Primary key"
+        tests: [not_null, unique]
+
+      - name: region_name
+        description: "Region name"
+        tests:
+          - not_null
+
+
